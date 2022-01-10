@@ -14,12 +14,6 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -60,6 +54,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <url>http://localhost:8085/manager/text</url>
                     <username>tomcat</username>
                     <password>tomcat</password>
                     <warFile>target\task_8.war</warFile>

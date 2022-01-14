@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface RolesDao<T, IDr>{
 
-    Roles find(Integer id) throws SQLException;
+    Roles getRolesById(Integer id) throws SQLException;
 
     List<T> findAll() throws SQLException;
 

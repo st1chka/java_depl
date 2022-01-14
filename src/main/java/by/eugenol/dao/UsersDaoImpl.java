@@ -1,36 +1,29 @@
 package by.eugenol.dao;
 
 import by.eugenol.DataSourceFactory;
+import by.eugenol.data.SessionFactoryHolder;
 import by.eugenol.interfaces.UsersDao;
 import by.eugenol.pojos.Users;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.sql.*;
 import java.util.*;
 
 public class UsersDaoImpl implements UsersDao<Users, Integer>  {
 
-    public static class SingletonHelper {
-        private static final UsersDaoImpl INSTANCE = new UsersDaoImpl();
-    }
+    private final SessionFactory sessionFactory;
 
-    public static UsersDaoImpl getInstance() {
-        return SingletonHelper.INSTANCE;
+    public UsersDaoImpl() {
+        sessionFactory = SessionFactoryHolder.getSessionFactory();
     }
 
     @Override
-    public Users find(Integer id) throws SQLException {
-        String sql = "SELECT * FROM public4.users WHERE id= (?)";
-        String login = "";
-
-        Connection conn = DataSourceFactory.getConnection();
-        PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setLong(1, id);
-        ResultSet resultSet = statement.executeQuery();
-
-        if (resultSet.next()) {
-            login = resultSet.getString("login");
-        }
-        return new Users(id, login);
+    public Users getUsersById(int id) {
+        Session session = sessionFactory.openSession();
+        Users users = session.get(Users.class, id);
+        session.close();
+        return users;
     }
 
 
@@ -104,7 +97,7 @@ public class UsersDaoImpl implements UsersDao<Users, Integer>  {
             }
             PreparedStatement preparedStatement = connection.prepareStatement(sql2);
             UsersDaoImpl usersDao = new UsersDaoImpl();
-            Users users = usersDao.find(userID);
+            Users users = usersDao.getUsersById(userID);
             for (Integer rl_id : rolesId) {
                 if (Objects.equals(rl_id, roleId)) {
                     preparedStatement.setInt(1, users.getId());

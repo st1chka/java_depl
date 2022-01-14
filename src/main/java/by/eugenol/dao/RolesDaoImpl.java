@@ -1,30 +1,31 @@
 package by.eugenol.dao;
 
 import by.eugenol.DataSourceFactory;
+import by.eugenol.data.SessionFactoryHolder;
 import by.eugenol.interfaces.RolesDao;
 import by.eugenol.pojos.Roles;
 import by.eugenol.pojos.Users;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.sql.*;
 import java.util.*;
 
 public class RolesDaoImpl implements RolesDao <Roles, Integer> {
 
+    private final SessionFactory sessionFactory;
+
+    public RolesDaoImpl() {
+        sessionFactory = SessionFactoryHolder.getSessionFactory();
+    }
+
+
     @Override
-    public Roles find(Integer id) throws SQLException {
-        String sql = "SELECT * FROM public4.roles WHERE id = (?)";
-        Integer role_id = 0;
-        String login = "";
-
-        Connection connection = DataSourceFactory.getConnection();
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setLong(1, id);
-        ResultSet resultSet = statement.executeQuery();
-
-        if(resultSet.next()) {
-            login = resultSet.getString("role_name");
-        }
-        return new Roles(id, login);
+    public Roles getRolesById(Integer id) throws SQLException {
+        Session session = sessionFactory.openSession();
+        Roles roles = session.get(Roles.class, id);
+        session.close();
+        return roles;
     }
 
     @Override

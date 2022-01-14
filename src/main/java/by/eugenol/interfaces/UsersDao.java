@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface UsersDao<T, ID> {
 
-    Users find(Integer id) throws SQLException;
+    Users getUsersById(int id);
 
     List<T> findAll() throws SQLException;
 

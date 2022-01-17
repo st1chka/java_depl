@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>task_11</artifactId>
+    <artifactId>department</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -121,7 +121,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.1</version>
                 <configuration>
-                    <warName>task_8</warName>
+                    <warName>department</warName>
                 </configuration>
             </plugin>
 
@@ -143,7 +143,7 @@
                     <url>http://localhost:8085/manager/text</url>
                     <username>tomcat</username>
                     <password>tomcat</password>
-                    <warFile>target\task_8.war</warFile>
+                    <warFile>target\department.war</warFile>
                 </configuration>
             </plugin>
         </plugins>

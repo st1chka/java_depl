@@ -1,49 +1,49 @@
 package by.eugenol.pojos;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Generated;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "T_ROLES")
+@Getter
+@Setter
+@ToString
+@Table(name = "roles")
 public class Roles {
-
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private List<Users> users;
-
-    public Roles(String name) {
-        this.name = name;
-    }
-
-    public Roles(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Roles roles = (Roles) o;
-        return Objects.equals(id, roles.id) && Objects.equals(name, roles.name) && Objects.equals(users, roles.users);
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final Roles roles = (Roles) obj;
+        if (!Objects.equals(this.name, roles.name)) {
+            return false;
+        }
+
+        return Objects.equals(this.name, roles.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, users);
+        return getClass().hashCode();
     }
+
+
 }

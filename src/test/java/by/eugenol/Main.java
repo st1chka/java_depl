@@ -1,36 +1,47 @@
 package by.eugenol;
 
-import by.eugenol.dao.RolesDaoImpl;
 import by.eugenol.dao.UsersDaoImpl;
 import by.eugenol.data.SessionFactoryHolder;
+import by.eugenol.interfaces.UsersDao;
 import by.eugenol.pojos.Roles;
 import by.eugenol.pojos.Users;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Transient;
-import java.io.Serializable;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-
-        UsersDaoImpl usersDao = new UsersDaoImpl();
-
-        RolesDaoImpl rolesDao = new RolesDaoImpl();
+    public static void main(String[] args) throws SQLException {
 
         Session session = SessionFactoryHolder.getSessionFactory().openSession();
-
         Transaction tr = session.beginTransaction();
 
-        session.save(rolesDao);
+        // Add subscription
+        Roles roles1 = new Roles();
+        roles1.setName("Admin");
 
-        System.out.println(usersDao.getUsersById(1));
+        Roles roles2 = new Roles();
+        roles2.setName("Manager");
+
+        Roles roles3 = new Roles();
+        roles3.setName("Anonym");
+
+
+        Set<Roles> rolesSet = new HashSet<Roles>();
+        rolesSet.add(roles1);
+        rolesSet.add(roles2);
+        rolesSet.add(roles3);
+
+        // Add Users
+
+        Users user1 = new Users();
+        user1.setLogin("Mikiiie");
+
+        UsersDao<Users, Integer> usersDao = new UsersDaoImpl();
+        usersDao.saveUserWithRoles(rolesSet, user1);
+
+
+
     }
 }

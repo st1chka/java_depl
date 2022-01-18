@@ -15,7 +15,7 @@ public class SessionFactoryHolder {
         if (sessionFactory == null) {
             StandardServiceRegistry reg =
                     new StandardServiceRegistryBuilder()
-                            .configure("hibernate.department.cfg.xml")
+                            .configure("hibernate.department.cfg.xml") //Configuration for our database
                             .build();
 
             sessionFactory = new MetadataSources(reg)

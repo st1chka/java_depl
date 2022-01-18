@@ -25,7 +25,7 @@ public class UsersDaoImpl implements UsersDao<Users, Integer>  {
     }
 
     @Override
-    public Users getUsersById(Integer id) throws SQLException {
+    public Users getUsersById(Integer id) throws SQLException { //Get User by id with method get
         Session session = sessionFactory.openSession();
         Users users = session.get(Users.class, id);
         session.close();
@@ -33,7 +33,7 @@ public class UsersDaoImpl implements UsersDao<Users, Integer>  {
     }
 
     @Override
-    public List<Users> findAll() throws SQLException {
+    public List<Users> findAll() throws SQLException { //Get list of all Users
         List<Users> users = (List<Users>) sessionFactory
                         .openSession()
                         .createQuery("From Users").list();
@@ -41,7 +41,7 @@ public class UsersDaoImpl implements UsersDao<Users, Integer>  {
     }
 
     @Override
-    public Serializable save(Users user) throws SQLException {
+    public Serializable save(Users user) throws SQLException { //Save user and get id of saved user
         Session session = sessionFactory.openSession();
         Serializable id = null;
         Transaction tr = null;
@@ -60,7 +60,7 @@ public class UsersDaoImpl implements UsersDao<Users, Integer>  {
     }
 
     @Override
-    public void update(Users users) throws SQLException {
+    public void update(Users users) throws SQLException { //Update existed user in database
         Session session = sessionFactory.openSession();
         Transaction tr = null;
         try {
@@ -77,7 +77,7 @@ public class UsersDaoImpl implements UsersDao<Users, Integer>  {
     }
 
     @Override
-    public boolean deleteUserById(Serializable id) throws SQLException {
+    public boolean deleteUserById(Serializable id) throws SQLException {//Delete user from database with id
         Session session = sessionFactory.openSession();
         Users roles = session.get(Users.class, id);
         Transaction tr = null;
@@ -96,7 +96,7 @@ public class UsersDaoImpl implements UsersDao<Users, Integer>  {
     }
 
     @Override
-    public Serializable saveUserWithRoles(Set<Roles> rolesSet, Users user) throws SQLException {
+    public Serializable saveUserWithRoles(Set<Roles> rolesSet, Users user) throws SQLException { //Save user with Set of roles
         Session session = SessionFactoryHolder.getSessionFactory().openSession();
         Serializable id = null;
         Transaction tr = null;

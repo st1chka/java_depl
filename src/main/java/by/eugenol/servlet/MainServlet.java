@@ -62,7 +62,7 @@ public class MainServlet extends HttpServlet{
         }
 
 
-        private void listUser(HttpServletRequest request, HttpServletResponse response)
+        private void listUser(HttpServletRequest request, HttpServletResponse response) //Get List of users for creating view on JSP
                 throws SQLException, ServletException, IOException {
             List<Users> listUser = userDao.findAll();
             request.setAttribute("listUser", listUser);
@@ -70,13 +70,13 @@ public class MainServlet extends HttpServlet{
             dispatcher.forward(request, response);
         }
 
-        private void showNewForm(HttpServletRequest request, HttpServletResponse response)
+        private void showNewForm(HttpServletRequest request, HttpServletResponse response) //Forward to new input form
                 throws ServletException, IOException {
             RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
             dispatcher.forward(request, response);
         }
 
-        private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+        private void showEditForm(HttpServletRequest request, HttpServletResponse response) //Forward to edit form
                 throws SQLException, ServletException, IOException {
             Integer id = Integer.parseInt(request.getParameter("id"));
             Users existingUser = userDao.getUsersById(id);
@@ -86,7 +86,7 @@ public class MainServlet extends HttpServlet{
 
         }
 
-        private void insertUser(HttpServletRequest request, HttpServletResponse response)
+        private void insertUser(HttpServletRequest request, HttpServletResponse response) //Get login and role, and insert user to database
                 throws SQLException, IOException {
             String login = request.getParameter("login");
             String role = request.getParameter("role");
@@ -99,7 +99,7 @@ public class MainServlet extends HttpServlet{
             response.sendRedirect("list");
         }
 
-        private void updateUser(HttpServletRequest request, HttpServletResponse response)
+        private void updateUser(HttpServletRequest request, HttpServletResponse response) //Get id and login from JSP and update user in database
                 throws SQLException, IOException {
             int id = Integer.parseInt(request.getParameter("id"));
             String login = request.getParameter("login");
@@ -108,7 +108,7 @@ public class MainServlet extends HttpServlet{
             response.sendRedirect("list");
         }
 
-        private void deleteUser(HttpServletRequest request, HttpServletResponse response)
+        private void deleteUser(HttpServletRequest request, HttpServletResponse response) //Get id from JSP and delete user by id using DAO
                 throws SQLException, IOException {
             int id = Integer.parseInt(request.getParameter("id"));
             userDao.deleteUserById(id);

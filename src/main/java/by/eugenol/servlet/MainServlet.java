@@ -31,6 +31,7 @@ public class MainServlet extends HttpServlet{
             doGet(request, response);
         }
 
+
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException{
             String action = request.getServletPath();
